@@ -1,11 +1,6 @@
-{{- $k8sBin := "k3s" }}
+{{- $k8sBin := "/usr/local/bin/k3s" }}
 {{- $dataDir := "/var/lib/rancher/k3s" }}
 {{- $tokenVar := "K3S_TOKEN" }}
-{{- if .Values.rke2.enabled }}
-{{- $k8sBin = "rke2" }}
-{{- $dataDir = "/var/lib/rancher/rke2" }}
-{{- $tokenVar = "RKE2_TOKEN" }}
-{{- end }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

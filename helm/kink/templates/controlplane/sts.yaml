@@ -1,13 +1,7 @@
-{{- $k8sBin := "k3s" }}
+{{- $k8sBin := "/usr/local/bin/k3s" }}
 {{- $dataDir := "/var/lib/rancher/k3s" }}
 {{- $tokenVar := "K3S_TOKEN" }}
 {{- $extraManifestsDir := "k3s" }}
-{{- if .Values.rke2.enabled }}
-{{- $k8sBin = "rke2" }}
-{{- $dataDir = "/var/lib/rancher/rke2" }}
-{{- $tokenVar = "RKE2_TOKEN" }}
-{{- $extraManifestsDir = "rke2" }}
-{{- end }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -94,8 +88,7 @@ spec:
               {{- end }}
               {{- end }}
               # TODO: This will always succeed, even if a copy fails, fix this
-
-              find '/etc/kink/extra-manifests/{{ $extraManifestsDir }}/user/' -name '*.yaml' -exec cp {} '{{ $dataDir }}/server/manifests/' \;
+              # find '/etc/kink/extra-manifests/{{ $extraManifestsDir }}/user/' -name '*.yaml' -exec cp {} '{{ $dataDir }}/server/manifests/' \;
           resources:
             {{- toYaml .Values.controlplane.resources | nindent 12 }}
           volumeMounts:
